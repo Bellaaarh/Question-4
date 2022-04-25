@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: task6
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: task6
+  template:
+    metadata:
+      labels:
+        app: task6
+    spec:
+      containers:
+        - name: task6
+          image: gcr.io/google-samples/hello-app:1.0
+          env:
+        # Define the environment variable
+        - name: DBURL
+          valueFrom:
+            configMapKeyRef:
+              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              name: myconfigmap
+              # Specify the key associated with the value
+              key: dburl
